@@ -1,81 +1,191 @@
-# ioio.github.io
-一个游戏网站
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Games</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-      text-align: center;
-    }
-
-    header {
-      padding: 40px 20px 20px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 42px;
-    }
-
-    p {
-      color: #ccc;
-    }
-
-    .game-list {
-      max-width: 900px;
-      margin: 30px auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .game-card {
-      display: block;
-      background: #222;
-      color: white;
-      text-decoration: none;
-      border-radius: 16px;
-      padding: 28px 20px;
-      transition: transform 0.2s, background 0.2s;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-    }
-
-    .game-card:hover {
-      background: #333;
-      transform: translateY(-4px);
-    }
-
-    .game-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .game-desc {
-      font-size: 15px;
-      color: #bbb;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft 神器库</title>
+<style>
+body{margin:0;font-family:Arial;background:#0b0f17;color:white}
+header{padding:35px 20px;text-align:center;background:linear-gradient(135deg,#101827,#1f2a44)}
+h1{margin:0;font-size:42px}
+p{color:#b8c0d0}
+#search{width:80%;max-width:700px;padding:14px;border-radius:12px;border:0;font-size:18px;margin-top:20px}
+.tabs{text-align:center;margin:20px}
+.tabs button{margin:5px;padding:10px 16px;border:0;border-radius:10px;background:#26344f;color:white;cursor:pointer}
+.tabs button:hover{background:#3d5a91}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;padding:25px}
+.card{background:#151c2e;border:1px solid #2b3758;border-radius:16px;padding:18px;box-shadow:0 8px 20px #0008}
+.card h2{margin:0 0 8px;color:#ffd166}
+.tag{display:inline-block;background:#24385f;color:#9fd3ff;border-radius:999px;padding:4px 10px;font-size:13px;margin-bottom:10px}
+pre{background:#05070d;color:#d7f7ff;padding:14px;border-radius:12px;overflow:auto;white-space:pre-wrap;word-break:break-word}
+.copy{background:#00c2ff;color:#00111a;border:0;padding:10px 14px;border-radius:10px;font-weight:bold;cursor:pointer}
+.copy:hover{background:#6ee7ff}
+</style>
 </head>
 <body>
-  <header>
-    <h1>My Games</h1>
-    <p>点击按钮开始游戏</p>
-  </header>
 
-  <main class="game-list">
-    <a class="game-card" href="games/territorial/index.html">
-      <div class="game-title">Territorial</div>
-      <div class="game-desc">点击进入游戏</div>
-    </a>
-  </main>
+<header>
+<h1>⚔ Minecraft 神器库 ⚔</h1>
+<p>1.21.11 指令收藏站 · 一键复制</p>
+<input id="search" placeholder="搜索：药水 / 鞘翅 / 烟花 / 盔甲 / Boss...">
+</header>
+
+<div class="tabs">
+<button onclick="filter('全部')">全部</button>
+<button onclick="filter('武器')">武器</button>
+<button onclick="filter('盔甲')">盔甲</button>
+<button onclick="filter('药水')">药水</button>
+<button onclick="filter('爆炸')">爆炸</button>
+<button onclick="filter('坐骑')">坐骑</button>
+<button onclick="filter('工具')">工具</button>
+<button onclick="filter('鞘翅')">鞘翅</button>
+</div>
+
+<main class="grid" id="list"></main>
+
+<script>
+const commands = [
+{
+title:"不死圣杖",
+cat:"武器",
+code:`/give @p stick[max_stack_size=64,custom_name='{"text":"不死圣杖","italic":false,"bold":true,"color":"gold"}',death_protection={death_effects:[{type:"apply_effects",effects:[{id:"minecraft:regeneration",amplifier:9,duration:1200},{id:"minecraft:resistance",amplifier:4,duration:1200},{id:"minecraft:strength",amplifier:9,duration:1200},{id:"minecraft:speed",amplifier:3,duration:1200},{id:"minecraft:jump_boost",amplifier:3,duration:1200},{id:"minecraft:night_vision",amplifier:0,duration:1200},{id:"minecraft:fire_resistance",amplifier:0,duration:1200},{id:"minecraft:absorption",amplifier:9,duration:1200}]}]},attribute_modifiers=[{id:"d",type:"minecraft:attack_damage",amount:1048576,operation:"add_value",slot:"mainhand"},{id:"s",type:"minecraft:attack_speed",amount:1024,operation:"add_value",slot:"mainhand"}],enchantments={sharpness:255,smite:255,bane_of_arthropods:255,knockback:255,fire_aspect:255,looting:255,sweeping_edge:255,unbreaking:255,mending:1},enchantment_glint_override=true] 64`
+},
+{
+title:"极限头盔",
+cat:"盔甲",
+code:`/give @p netherite_helmet[attribute_modifiers=[{id:"h1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"head"},{id:"h2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"head"},{id:"h3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"head"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,respiration:255,aqua_affinity:1,thorns:255,unbreaking:255,mending:1}]`
+},
+{
+title:"极限胸甲",
+cat:"盔甲",
+code:`/give @p netherite_chestplate[attribute_modifiers=[{id:"c1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"chest"},{id:"c2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"chest"},{id:"c3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"chest"},{id:"c4",type:"minecraft:knockback_resistance",amount:1,operation:"add_value",slot:"chest"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,thorns:255,unbreaking:255,mending:1}]`
+},
+{
+title:"极限护腿",
+cat:"盔甲",
+code:`/give @p netherite_leggings[attribute_modifiers=[{id:"l1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"legs"},{id:"l2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"legs"},{id:"l3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"legs"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,thorns:255,unbreaking:255,mending:1}]`
+},
+{
+title:"极限靴子",
+cat:"盔甲",
+code:`/give @p netherite_boots[attribute_modifiers=[{id:"b1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"feet"},{id:"b2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"feet"},{id:"b3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"feet"},{id:"b4",type:"minecraft:knockback_resistance",amount:1,operation:"add_value",slot:"feet"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,feather_falling:255,depth_strider:255,soul_speed:255,thorns:255,unbreaking:255,mending:1}]`
+},
+{
+title:"超级镐子",
+cat:"工具",
+code:`/give @p netherite_pickaxe[enchantments={efficiency:255,fortune:255,unbreaking:255,mending:1}]`
+},
+{
+title:"超级恢复药水",
+cat:"药水",
+code:`/give @p splash_potion[potion_contents={custom_effects:[{id:"minecraft:instant_health",amplifier:255,duration:1},{id:"minecraft:regeneration",amplifier:255,duration:1200},{id:"minecraft:absorption",amplifier:255,duration:1200}]},max_stack_size=64] 64`
+},
+{
+title:"超级弩",
+cat:"武器",
+code:`/give @p crossbow[enchantments={quick_charge:255,unbreaking:255,mending:1}]`
+},
+{
+title:"超级烟花模板",
+cat:"爆炸",
+code:`/give @p firework_rocket[fireworks={flight_duration:3,explosions:[{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"}]}] 64`
+},
+{
+title:"旗子矛",
+cat:"武器",
+code:`/give @p diamond_spear[item_model="minecraft:white_banner",custom_name='{"text":"战旗","color":"gold","bold":true,"italic":false}',attribute_modifiers=[{id:"damage",type:"minecraft:attack_damage",amount:20,operation:"add_value",slot:"mainhand"}],enchantments={lunge:15,knockback:4,unbreaking:3,mending:1}]`
+},
+{
+title:"超级牛排",
+cat:"工具",
+code:`/give @p cooked_beef[food={nutrition:1000,saturation:1000,can_always_eat:true},consumable={consume_seconds:0.05}] 64`
+},
+{
+title:"战斗之神的馈赠",
+cat:"药水",
+code:`/give @p splash_potion[item_model="minecraft:dragon_egg",custom_name='{"text":"战斗之神的馈赠","color":"gold","bold":true,"italic":false}',max_stack_size=64,potion_contents={custom_effects:[{id:"minecraft:regeneration",amplifier:4,duration:36000},{id:"minecraft:resistance",amplifier:4,duration:36000},{id:"minecraft:strength",amplifier:4,duration:36000},{id:"minecraft:speed",amplifier:2,duration:36000},{id:"minecraft:jump_boost",amplifier:1,duration:36000},{id:"minecraft:night_vision",amplifier:0,duration:36000},{id:"minecraft:fire_resistance",amplifier:0,duration:36000},{id:"minecraft:water_breathing",amplifier:0,duration:36000},{id:"minecraft:saturation",amplifier:0,duration:36000},{id:"minecraft:absorption",amplifier:4,duration:36000}]}}] 64`
+},
+{
+title:"劣质不死图腾",
+cat:"药水",
+code:`/give @p totem_of_undying[max_stack_size=64,custom_name='{"text":"劣质不死图腾","color":"dark_green","italic":false}',death_protection={death_effects:[{type:"apply_effects",effects:[{id:"minecraft:nausea",amplifier:0,duration:300},{id:"minecraft:poison",amplifier:1,duration:300},{id:"minecraft:weakness",amplifier:1,duration:300}]}]}] 64`
+},
+{
+title:"浴火重生药水",
+cat:"药水",
+code:`/give @p splash_potion[max_stack_size=64,custom_name='{"text":"浴火重生","color":"gold","bold":true,"italic":false}',potion_contents={custom_effects:[{id:"minecraft:instant_damage",amplifier:0,duration:1},{id:"minecraft:regeneration",amplifier:4,duration:1200}]}}] 64`
+},
+{
+title:"灾厄之瓶样式喷溅药水",
+cat:"药水",
+code:`/give @p splash_potion[item_model="minecraft:ominous_bottle",custom_name='{"text":"灾厄之瓶","color":"dark_red","bold":true,"italic":false}',max_stack_size=64,potion_contents={custom_effects:[{id:"minecraft:blindness",amplifier:0,duration:600},{id:"minecraft:nausea",amplifier:0,duration:600},{id:"minecraft:slowness",amplifier:2,duration:600},{id:"minecraft:hunger",amplifier:4,duration:600},{id:"minecraft:weakness",amplifier:2,duration:600}]}}] 64`
+},
+{
+title:"海洋之心高伤害斧",
+cat:"武器",
+code:`/give @p diamond_axe[item_model="minecraft:heart_of_the_sea",custom_name='{"text":"海洋之心","color":"gold","bold":true,"italic":false}',damage=1560,attribute_modifiers=[{id:"damage",type:"minecraft:attack_damage",amount:15,operation:"add_value",slot:"mainhand"}],enchantments={sharpness:22}]`
+},
+{
+title:"净化圣水",
+cat:"药水",
+code:`/give @p milk_bucket[custom_name='{"text":"净化圣水","color":"white","bold":true,"italic":false}',max_stack_size=64,consumable={consume_seconds:2,on_consume_effects:[{type:"clear_all_effects"},{type:"apply_effects",effects:[{id:"minecraft:night_vision",amplifier:0,duration:100}]}]}] 64`
+},
+{
+title:"诸神之翼",
+cat:"鞘翅",
+code:`/give @p elytra[custom_name='{"text":"诸神之翼","color":"gold","bold":true,"italic":false}',unbreakable={},enchantment_glint_override=true,attribute_modifiers=[{id:"speed",type:"minecraft:movement_speed",amount:1.0,operation:"add_multiplied_total",slot:"chest"},{id:"kb",type:"minecraft:knockback_resistance",amount:1.0,operation:"add_value",slot:"chest"},{id:"armor",type:"minecraft:armor",amount:20,operation:"add_value",slot:"chest"},{id:"tough",type:"minecraft:armor_toughness",amount:20,operation:"add_value",slot:"chest"}]]`
+},
+{
+title:"潮涌核心样式烟花火箭",
+cat:"鞘翅",
+code:`/give @p firework_rocket[item_model="minecraft:conduit",custom_name='{"text":"神风推进器","color":"gold","bold":true,"italic":false}',enchantment_glint_override=true,fireworks={flight_duration:3}] 64`
+},
+{
+title:"超级火球",
+cat:"爆炸",
+code:`/summon fireball ~ ~1 ~ {ExplosionPower:127}`
+}
+];
+
+let current = "全部";
+
+function render(){
+  const q = document.getElementById("search").value.toLowerCase();
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  commands.filter(x=>{
+    return (current==="全部" || x.cat===current) &&
+    (x.title.toLowerCase().includes(q) || x.cat.toLowerCase().includes(q) || x.code.toLowerCase().includes(q));
+  }).forEach((x,i)=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <span class="tag">${x.cat}</span>
+      <h2>${x.title}</h2>
+      <pre id="code${i}">${x.code}</pre>
+      <button class="copy" onclick="copyCode(${i})">📋 复制指令</button>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function filter(cat){
+  current=cat;
+  render();
+}
+
+function copyCode(i){
+  navigator.clipboard.writeText(commands.filter(x=>{
+    const q=document.getElementById("search").value.toLowerCase();
+    return (current==="全部" || x.cat===current) &&
+    (x.title.toLowerCase().includes(q) || x.cat.toLowerCase().includes(q) || x.code.toLowerCase().includes(q));
+  })[i].code);
+  alert("已复制！");
+}
+
+document.getElementById("search").addEventListener("input",render);
+render();
+</script>
+
 </body>
 </html>
