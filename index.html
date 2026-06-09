@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minecraft 神器库</title>
+<title>MC1.21 神器库 Pro</title>
 <style>
 body{margin:0;font-family:Arial;background:#0b0f17;color:white}
 header{padding:35px 20px;text-align:center;background:linear-gradient(135deg,#101827,#1f2a44)}
@@ -13,7 +13,6 @@ p{color:#b8c0d0}
 .tabs{text-align:center;margin:20px}
 .tabs button{margin:5px;padding:10px 16px;border:0;border-radius:10px;background:#26344f;color:white;cursor:pointer}
 .tabs button:hover{background:#3d5a91}
-.tabs button.active{background:#00c2ff;color:#00111a;font-weight:bold}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;padding:25px}
 .card{background:#151c2e;border:1px solid #2b3758;border-radius:16px;padding:18px;box-shadow:0 8px 20px #0008}
 .card h2{margin:0 0 8px;color:#ffd166}
@@ -36,41 +35,280 @@ pre{background:#05070d;color:#d7f7ff;padding:14px;border-radius:12px;overflow:au
 .gen-row label{flex:0 0 110px;color:#9fd3ff;font-size:14px}
 .gen-row input,.gen-row select{flex:1;min-width:140px;padding:10px;border-radius:8px;border:1px solid #2b3758;background:#05070d;color:#d7f7ff;font-size:15px}
 .gen-row input:focus,.gen-row select:focus{outline:none;border-color:#00c2ff}
+.gen-row input[type=color]{flex:0 0 60px;min-width:60px;height:42px;padding:2px;cursor:pointer}
 .gen-row .hint{flex:0 0 100%;color:#7a8aa8;font-size:12px;margin-left:110px;margin-top:-8px}
-.gen-out{background:#05070d;border:2px solid #00c2ff;border-radius:12px;padding:14px;display:flex;align-items:center;gap:10px}
-.gen-out pre{margin:0;flex:1;background:transparent;padding:0;color:#6ee7ff;font-size:15px}
+.gen-out{background:#05070d;border:2px solid #00c2ff;border-radius:12px;padding:14px;display:flex;align-items:center;gap:10px;position:sticky;bottom:10px}
+.gen-out pre{margin:0;flex:1;background:transparent;padding:0;color:#6ee7ff;font-size:14px;max-height:200px;overflow:auto}
 .quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .quick button{padding:8px 12px;border:0;border-radius:8px;background:#2b3758;color:white;cursor:pointer;font-size:13px}
 .quick button:hover{background:#3d5a91}
 .tip{background:#1f2a44;border-left:4px solid #ffd166;padding:10px 14px;border-radius:6px;margin-bottom:14px;font-size:13px;color:#ffe9a0}
+.section-title{color:#ffd166;font-weight:bold;font-size:16px;margin:20px 0 12px;padding-top:14px;border-top:1px solid #2b3758;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.section-title button{background:#3d5a91;color:white;border:0;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:12px}
+.section-title button:hover{background:#4d6aa1}
+.section-title .sub-tip{color:#7a8aa8;font-size:12px;font-weight:normal}
+.cb-label{color:#d7f7ff;font-size:14px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;padding:6px 10px;background:#0b1426;border-radius:6px;border:1px solid #2b3758;margin-right:6px;flex:0 0 auto}
+.cb-label input{flex:0 0 auto;min-width:auto;padding:0;margin:0;width:16px;height:16px}
+.row-card{background:#0b1426;padding:10px;border-radius:8px;border:1px solid #1f2a44;margin-bottom:8px}
+.row-card .gen-row{margin-bottom:0}
+.del-btn{background:#d44;color:white;border:0;border-radius:8px;padding:8px 12px;cursor:pointer;flex:0 0 auto;min-width:auto}
+.del-btn:hover{background:#e55}
 </style>
 </head>
 <body>
 
 <header>
-<h1>⚔ Minecraft 神器库 ⚔</h1>
-<p>1.21.11 指令收藏站 · 一键复制 · 内置生成器</p>
+<h1>⚔ MC1.21 神器库 Pro ⚔</h1>
+<p>1.21.11 神器收藏站 · 全组件指令生成器 · 木棍变神剑</p>
 <input id="search" placeholder="搜索：药水 / 鞘翅 / 烟花 / 盔甲 / Boss...">
 </header>
 
 <!-- ====== 指令生成器 ====== -->
 <section class="gen-section">
-<h2>🛠️ 指令生成器</h2>
-<p class="sub">不会写指令？选一下就行，自动给你生成</p>
+<h2>🛠️ 指令生成器 Pro</h2>
+<p class="sub">完整 1.21 give 组件 · 任意物品改造神器</p>
 
 <div class="gen-tabs" id="genTabs">
-<button data-gen="tp" class="active">🚀 传送 /tp</button>
-<button data-gen="summon">👹 召唤生物 /summon</button>
-<button data-gen="give">🎁 给予物品 /give</button>
-<button data-gen="effect">✨ 加效果 /effect</button>
-<button data-gen="gamemode">🎮 游戏模式</button>
+<button data-gen="give" class="active">🎁 给予物品 /give 神器制造机</button>
+<button data-gen="tp">🚀 传送 /tp</button>
+<button data-gen="summon">👹 召唤 /summon</button>
+<button data-gen="effect">✨ 效果 /effect</button>
+<button data-gen="gamemode">🎮 模式</button>
 <button data-gen="time">🌙 时间/天气</button>
-<button data-gen="kill">💀 清除 /kill</button>
+<button data-gen="kill">💀 清除</button>
 <button data-gen="setblock">🧱 放方块</button>
 </div>
 
-<!-- 各生成器面板 -->
-<div class="gen-panel" id="panel-tp">
+<!-- ===== GIVE 神器制造机 ===== -->
+<div class="gen-panel" id="panel-give">
+<div class="tip">💡 把任何物品变成神器：木棍变神剑、纸变神书。所有 1.21 give 组件可以自由组合，下方实时生成。</div>
+
+<div class="section-title" style="border:0;padding-top:0;margin-top:0">📦 基础</div>
+<div class="gen-row"><label>给谁</label>
+<select id="give_who">
+<option value="@p">@p（自己）</option>
+<option value="@a">@a（所有玩家）</option>
+<option value="@s">@s</option>
+<option value="custom">输入玩家名...</option>
+</select></div>
+<div class="gen-row" id="give_who_name_row" style="display:none"><label>玩家名</label>
+<input id="give_who_name" placeholder="Steve"></div>
+
+<div class="gen-row"><label>物品</label>
+<select id="give_item">
+<optgroup label="🪵 看似平凡（适合改造神器）">
+<option value="stick">木棍 ⭐</option>
+<option value="paper">纸 ⭐</option>
+<option value="feather">羽毛</option>
+<option value="blaze_rod">烈焰棒</option>
+<option value="bone">骨头</option>
+<option value="bamboo">竹子</option>
+<option value="carrot">胡萝卜</option>
+<option value="apple">苹果</option>
+<option value="rotten_flesh">腐肉</option>
+<option value="slime_ball">史莱姆球</option>
+<option value="snowball">雪球</option>
+<option value="egg">鸡蛋</option>
+<option value="dirt">泥土</option>
+<option value="cobblestone">圆石</option>
+</optgroup>
+<optgroup label="⚒ 武器">
+<option value="netherite_sword">下界合金剑</option>
+<option value="diamond_sword">钻石剑</option>
+<option value="netherite_axe">下界合金斧</option>
+<option value="diamond_axe">钻石斧</option>
+<option value="bow">弓</option>
+<option value="crossbow">弩</option>
+<option value="trident">三叉戟</option>
+<option value="mace">重锤</option>
+<option value="shield">盾牌</option>
+</optgroup>
+<optgroup label="⛏ 工具">
+<option value="netherite_pickaxe">下界合金镐</option>
+<option value="netherite_shovel">下界合金锹</option>
+<option value="netherite_hoe">下界合金锄</option>
+<option value="fishing_rod">钓鱼竿</option>
+<option value="shears">剪刀</option>
+<option value="flint_and_steel">打火石</option>
+</optgroup>
+<optgroup label="🛡 盔甲">
+<option value="netherite_helmet">下界合金头盔</option>
+<option value="netherite_chestplate">下界合金胸甲</option>
+<option value="netherite_leggings">下界合金护腿</option>
+<option value="netherite_boots">下界合金靴子</option>
+<option value="elytra">鞘翅</option>
+<option value="turtle_helmet">海龟头盔</option>
+<option value="leather_helmet">皮革头盔</option>
+<option value="leather_chestplate">皮革胸甲</option>
+<option value="leather_leggings">皮革护腿</option>
+<option value="leather_boots">皮革靴子</option>
+</optgroup>
+<optgroup label="🌟 稀有">
+<option value="netherite_ingot">下界合金锭</option>
+<option value="nether_star">下界之星</option>
+<option value="dragon_egg">龙蛋</option>
+<option value="totem_of_undying">不死图腾</option>
+<option value="enchanted_golden_apple">附魔金苹果</option>
+<option value="heart_of_the_sea">海洋之心</option>
+<option value="conduit">潮涌核心</option>
+<option value="beacon">信标</option>
+<option value="end_crystal">末影水晶</option>
+<option value="ominous_bottle">灾厄之瓶</option>
+</optgroup>
+<optgroup label="🍖 食物">
+<option value="cooked_beef">熟牛肉</option>
+<option value="golden_apple">金苹果</option>
+<option value="bread">面包</option>
+<option value="cake">蛋糕</option>
+<option value="cookie">饼干</option>
+</optgroup>
+<optgroup label="🧱 方块">
+<option value="tnt">TNT</option>
+<option value="obsidian">黑曜石</option>
+<option value="command_block">命令方块</option>
+<option value="bedrock">基岩</option>
+<option value="barrier">屏障</option>
+<option value="diamond_block">钻石块</option>
+<option value="netherite_block">下界合金块</option>
+<option value="reinforced_deepslate">强化深板岩</option>
+</optgroup>
+<optgroup label="🎁 其他">
+<option value="ender_pearl">末影珍珠</option>
+<option value="experience_bottle">附魔之瓶</option>
+<option value="firework_rocket">烟花火箭</option>
+<option value="splash_potion">喷溅药水</option>
+<option value="lingering_potion">滞留药水</option>
+<option value="milk_bucket">奶桶</option>
+<option value="lava_bucket">熔岩桶</option>
+<option value="enchanted_book">附魔书</option>
+<option value="written_book">成书</option>
+<option value="custom_item">手动输入物品ID...</option>
+</optgroup>
+</select></div>
+
+<div class="gen-row" id="give_custom_row" style="display:none"><label>物品ID</label>
+<input id="give_custom" placeholder="例: minecraft:diamond"></div>
+
+<div class="gen-row"><label>数量</label>
+<input id="give_count" type="number" value="1" min="1" max="64"></div>
+
+<!-- 🏷️ 自定义名字 -->
+<div class="section-title">🏷️ 自定义名字 <span class="sub-tip">custom_name</span></div>
+<div class="gen-row"><label>名字</label>
+<input id="give_name" placeholder="例: 雷神之锤（留空=不修改）"></div>
+<div class="gen-row"><label>颜色</label>
+<select id="give_name_color"></select></div>
+<div class="gen-row"><label>样式</label>
+<label class="cb-label"><input type="checkbox" id="give_name_bold">加粗</label>
+<label class="cb-label"><input type="checkbox" id="give_name_italic" checked>斜体</label>
+<label class="cb-label"><input type="checkbox" id="give_name_under">下划线</label>
+<label class="cb-label"><input type="checkbox" id="give_name_strike">删除线</label>
+<label class="cb-label"><input type="checkbox" id="give_name_obf">混淆(彩字)</label>
+</div>
+<div class="hint" style="margin-left:0;color:#7a8aa8;font-size:12px;margin-top:-8px">💡 默认所有自定义名字会斜体，去掉勾选才正常显示</div>
+
+<!-- 📜 Lore -->
+<div class="section-title">📜 Lore 描述 <span class="sub-tip">lore=[...] 物品下方的小字</span>
+<button onclick="addLore()">➕ 添加一行</button>
+</div>
+<div id="lore_list"></div>
+
+<!-- ✨ 外观 -->
+<div class="section-title">✨ 外观/稀有度 <span class="sub-tip">rarity / item_model / glint / dyed_color</span></div>
+<div class="gen-row"><label>稀有度</label>
+<select id="give_rarity">
+<option value="">默认</option>
+<option value="common">普通 (白色名)</option>
+<option value="uncommon">少见 (黄色名)</option>
+<option value="rare">稀有 (青色名)</option>
+<option value="epic">史诗 (紫色名)</option>
+</select></div>
+<div class="gen-row"><label>物品模型</label>
+<select id="give_item_model"></select>
+<span class="hint" style="margin:0;flex:0 0 100%;margin-left:110px;color:#7a8aa8;font-size:12px">让物品长得像其他东西（例：木棍长得像剑）</span>
+</div>
+<div class="gen-row"><label>染色</label>
+<input id="give_color" type="color" value="#ff0000">
+<label class="cb-label"><input type="checkbox" id="give_color_on">启用染色（皮革甲/狼项圈等）</label>
+</div>
+<div class="gen-row"><label>开关</label>
+<label class="cb-label"><input type="checkbox" id="give_glint">强制发光</label>
+<label class="cb-label"><input type="checkbox" id="give_hide_tooltip">隐藏所有提示</label>
+<label class="cb-label"><input type="checkbox" id="give_hide_add">隐藏附加提示</label>
+</div>
+
+<!-- 🔧 耐久 & 堆叠 -->
+<div class="section-title">🔧 耐久 & 堆叠 <span class="sub-tip">unbreakable / max_damage / damage / repair_cost / max_stack_size</span></div>
+<div class="gen-row"><label>不可破坏</label>
+<label class="cb-label"><input type="checkbox" id="give_unbreak">永不损坏</label>
+</div>
+<div class="gen-row"><label>最大耐久</label>
+<input id="give_max_dmg" type="number" placeholder="留空=默认。例: 99999"></div>
+<div class="gen-row"><label>当前损坏值</label>
+<input id="give_dmg" type="number" placeholder="留空=满耐久。0=全新"></div>
+<div class="gen-row"><label>修理代价</label>
+<input id="give_repair" type="number" placeholder="留空=默认。0=免费修复"></div>
+<div class="gen-row"><label>最大堆叠</label>
+<input id="give_stack" type="number" placeholder="留空=默认 (1-99，例：让剑能叠64)"></div>
+
+<!-- ✨ 附魔 -->
+<div class="section-title">✨ 附魔 <span class="sub-tip">enchantments={...}</span>
+<button onclick="addEnch()">➕ 添加附魔</button>
+</div>
+<div id="ench_list"></div>
+
+<!-- ⚔ 属性修饰 -->
+<div class="section-title">⚔ 属性修饰 <span class="sub-tip">attribute_modifiers=[...]</span>
+<button onclick="addAttr()">➕ 添加属性</button>
+</div>
+<div id="attr_list"></div>
+
+<!-- 🍖 食物 -->
+<div class="section-title">🍖 食物属性 <span class="sub-tip">food={} + consumable={}</span></div>
+<div class="gen-row"><label>启用</label>
+<label class="cb-label"><input type="checkbox" id="give_food_on">让这个物品能吃</label>
+</div>
+<div class="gen-row"><label>营养(回饥饿)</label>
+<input id="give_food_nut" type="number" value="20" min="0" max="9999"></div>
+<div class="gen-row"><label>饱和度</label>
+<input id="give_food_sat" type="number" value="20" step="0.1" min="0" max="9999"></div>
+<div class="gen-row"><label>总是可吃</label>
+<label class="cb-label"><input type="checkbox" id="give_food_always" checked>不饿也能吃</label>
+</div>
+<div class="gen-row"><label>食用时间(秒)</label>
+<input id="give_consume_sec" type="number" value="0.05" step="0.05" min="0.05"></div>
+
+<!-- ⏱ 使用冷却 -->
+<div class="section-title">⏱ 使用冷却 <span class="sub-tip">use_cooldown={}</span></div>
+<div class="gen-row"><label>启用冷却</label>
+<label class="cb-label"><input type="checkbox" id="give_cd_on">使用后进入冷却</label>
+</div>
+<div class="gen-row"><label>冷却秒数</label>
+<input id="give_cd_sec" type="number" value="1" step="0.1" min="0.1"></div>
+
+<!-- 🛡 死亡保护 -->
+<div class="section-title">🛡 死亡保护 <span class="sub-tip">death_protection={} 类似不死图腾，死亡时触发并获得效果</span>
+<button onclick="addDeath()">➕ 添加复活后效果</button>
+</div>
+<div id="death_list"></div>
+
+<!-- 预设 -->
+<div class="section-title">🚀 一键预设</div>
+<div class="quick">
+<button onclick="presetGive('sword')">⚔ 神剑</button>
+<button onclick="presetGive('armor')">🛡 神甲胸</button>
+<button onclick="presetGive('bow')">🏹 神弓</button>
+<button onclick="presetGive('pickaxe')">⛏ 神镐</button>
+<button onclick="presetGive('stick_god')">🌟 木棍 → 神器</button>
+<button onclick="presetGive('paper_god')">📜 纸 → 天命书简</button>
+<button onclick="presetGive('totem_pro')">💀 究极不死图腾</button>
+<button onclick="presetGive('food_god')">🍖 神食</button>
+<button onclick="presetGive('clear')">🗑 清空所有组件</button>
+</div>
+</div>
+
+<!-- ===== 其他面板 ===== -->
+<div class="gen-panel" id="panel-tp" style="display:none">
 <div class="tip">💡 把自己/玩家传送到某个地方。坐标用 ~ 表示"当前位置"，比如 ~ ~10 ~ 就是往上飞10格</div>
 <div class="gen-row"><label>谁要传送</label>
 <select id="tp_who">
@@ -82,22 +320,18 @@ pre{background:#05070d;color:#d7f7ff;padding:14px;border-radius:12px;overflow:au
 </select></div>
 <div class="gen-row" id="tp_who_name_row" style="display:none"><label>玩家名</label>
 <input id="tp_who_name" placeholder="Steve"></div>
-
 <div class="gen-row"><label>传送方式</label>
 <select id="tp_mode">
 <option value="coord">传送到坐标</option>
 <option value="player">传送到某个玩家身边</option>
 <option value="rel">在自己附近移动</option>
 </select></div>
-
 <div class="gen-row" id="tp_coord_row"><label>X Y Z</label>
 <input id="tp_x" placeholder="X 例: 100" style="flex:1">
 <input id="tp_y" placeholder="Y 例: 80" style="flex:1">
 <input id="tp_z" placeholder="Z 例: -200" style="flex:1"></div>
-
 <div class="gen-row" id="tp_player_row" style="display:none"><label>目标玩家</label>
 <input id="tp_target" placeholder="例: Steve 或 @p"></div>
-
 <div class="quick">
 <button onclick="tpQuick('~ ~50 ~')">飞50格</button>
 <button onclick="tpQuick('~ ~100 ~')">飞100格</button>
@@ -193,78 +427,6 @@ pre{background:#05070d;color:#d7f7ff;padding:14px;border-radius:12px;overflow:au
 <button onclick="setSummon('iron_golem')">铁傀儡</button>
 <button onclick="setSummon('lightning_bolt')">天降闪电</button>
 </div>
-</div>
-
-<div class="gen-panel" id="panel-give" style="display:none">
-<div class="tip">💡 给玩家发物品，比如钻石、附魔金苹果、命令方块等</div>
-<div class="gen-row"><label>给谁</label>
-<select id="give_who">
-<option value="@p">@p（自己）</option>
-<option value="@a">@a（所有玩家）</option>
-<option value="custom">输入玩家名...</option>
-</select></div>
-<div class="gen-row" id="give_who_name_row" style="display:none"><label>玩家名</label>
-<input id="give_who_name" placeholder="Steve"></div>
-
-<div class="gen-row"><label>物品</label>
-<select id="give_item">
-<optgroup label="🌟 稀有">
-<option value="netherite_ingot">下界合金锭</option>
-<option value="diamond">钻石</option>
-<option value="enchanted_golden_apple">附魔金苹果</option>
-<option value="totem_of_undying">不死图腾</option>
-<option value="elytra">鞘翅</option>
-<option value="nether_star">下界之星</option>
-<option value="dragon_egg">龙蛋</option>
-<option value="beacon">信标</option>
-</optgroup>
-<optgroup label="⚒ 工具/武器">
-<option value="netherite_sword">下界合金剑</option>
-<option value="netherite_pickaxe">下界合金镐</option>
-<option value="netherite_axe">下界合金斧</option>
-<option value="netherite_shovel">下界合金锹</option>
-<option value="bow">弓</option>
-<option value="crossbow">弩</option>
-<option value="trident">三叉戟</option>
-<option value="mace">重锤</option>
-<option value="shield">盾牌</option>
-</optgroup>
-<optgroup label="🛡 盔甲">
-<option value="netherite_helmet">下界合金头盔</option>
-<option value="netherite_chestplate">下界合金胸甲</option>
-<option value="netherite_leggings">下界合金护腿</option>
-<option value="netherite_boots">下界合金靴子</option>
-</optgroup>
-<optgroup label="🍖 食物">
-<option value="cooked_beef">熟牛肉</option>
-<option value="golden_apple">金苹果</option>
-<option value="bread">面包</option>
-<option value="cake">蛋糕</option>
-</optgroup>
-<optgroup label="🧱 方块">
-<option value="tnt">TNT</option>
-<option value="obsidian">黑曜石</option>
-<option value="command_block">命令方块</option>
-<option value="bedrock">基岩</option>
-<option value="barrier">屏障</option>
-<option value="diamond_block">钻石块</option>
-<option value="netherite_block">下界合金块</option>
-</optgroup>
-<optgroup label="🎁 杂项">
-<option value="ender_pearl">末影珍珠</option>
-<option value="experience_bottle">附魔之瓶</option>
-<option value="firework_rocket">烟花火箭</option>
-<option value="bucket">桶</option>
-<option value="lava_bucket">熔岩桶</option>
-<option value="custom_item">手动输入物品ID...</option>
-</optgroup>
-</select></div>
-
-<div class="gen-row" id="give_custom_row" style="display:none"><label>物品ID</label>
-<input id="give_custom" placeholder="例: minecraft:diamond"></div>
-
-<div class="gen-row"><label>数量</label>
-<input id="give_count" type="number" value="1" min="1" max="64"></div>
 </div>
 
 <div class="gen-panel" id="panel-effect" style="display:none">
@@ -424,7 +586,7 @@ pre{background:#05070d;color:#d7f7ff;padding:14px;border-radius:12px;overflow:au
 
 <!-- 输出 -->
 <div class="gen-out">
-<pre id="gen_result">/tp @p ~ ~ ~</pre>
+<pre id="gen_result">/give @p stick 1</pre>
 <button class="copy" onclick="copyGen()">📋 复制</button>
 </div>
 </section>
@@ -444,236 +606,471 @@ pre{background:#05070d;color:#d7f7ff;padding:14px;border-radius:12px;overflow:au
 <main class="grid" id="list"></main>
 
 <script>
+/* ===== 神器库数据 ===== */
 const commands = [
-{
-title:"不死圣杖",
-cat:"武器",
-code:`/give @p stick[max_stack_size=64,custom_name='{"text":"不死圣杖","italic":false,"bold":true,"color":"gold"}',death_protection={death_effects:[{type:"apply_effects",effects:[{id:"minecraft:regeneration",amplifier:9,duration:1200},{id:"minecraft:resistance",amplifier:4,duration:1200},{id:"minecraft:strength",amplifier:9,duration:1200},{id:"minecraft:speed",amplifier:3,duration:1200},{id:"minecraft:jump_boost",amplifier:3,duration:1200},{id:"minecraft:night_vision",amplifier:0,duration:1200},{id:"minecraft:fire_resistance",amplifier:0,duration:1200},{id:"minecraft:absorption",amplifier:9,duration:1200}]}]},attribute_modifiers=[{id:"d",type:"minecraft:attack_damage",amount:1048576,operation:"add_value",slot:"mainhand"},{id:"s",type:"minecraft:attack_speed",amount:1024,operation:"add_value",slot:"mainhand"}],enchantments={sharpness:255,smite:255,bane_of_arthropods:255,knockback:255,fire_aspect:255,looting:255,sweeping_edge:255,unbreaking:255,mending:1},enchantment_glint_override=true] 64`
-},
-{
-title:"极限头盔",
-cat:"盔甲",
-code:`/give @p netherite_helmet[attribute_modifiers=[{id:"h1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"head"},{id:"h2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"head"},{id:"h3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"head"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,respiration:255,aqua_affinity:1,thorns:255,unbreaking:255,mending:1}]`
-},
-{
-title:"极限胸甲",
-cat:"盔甲",
-code:`/give @p netherite_chestplate[attribute_modifiers=[{id:"c1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"chest"},{id:"c2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"chest"},{id:"c3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"chest"},{id:"c4",type:"minecraft:knockback_resistance",amount:1,operation:"add_value",slot:"chest"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,thorns:255,unbreaking:255,mending:1}]`
-},
-{
-title:"极限护腿",
-cat:"盔甲",
-code:`/give @p netherite_leggings[attribute_modifiers=[{id:"l1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"legs"},{id:"l2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"legs"},{id:"l3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"legs"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,thorns:255,unbreaking:255,mending:1}]`
-},
-{
-title:"极限靴子",
-cat:"盔甲",
-code:`/give @p netherite_boots[attribute_modifiers=[{id:"b1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"feet"},{id:"b2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"feet"},{id:"b3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"feet"},{id:"b4",type:"minecraft:knockback_resistance",amount:1,operation:"add_value",slot:"feet"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,feather_falling:255,depth_strider:255,soul_speed:255,thorns:255,unbreaking:255,mending:1}]`
-},
-{
-title:"超级镐子",
-cat:"工具",
-code:`/give @p netherite_pickaxe[enchantments={efficiency:255,fortune:255,unbreaking:255,mending:1}]`
-},
-{
-title:"超级恢复药水",
-cat:"药水",
-code:`/give @p splash_potion[potion_contents={custom_effects:[{id:"minecraft:instant_health",amplifier:255,duration:1},{id:"minecraft:regeneration",amplifier:255,duration:1200},{id:"minecraft:absorption",amplifier:255,duration:1200}]},max_stack_size=64] 64`
-},
-{
-title:"超级弩",
-cat:"武器",
-code:`/give @p crossbow[enchantments={quick_charge:255,unbreaking:255,mending:1}]`
-},
-{
-title:"超级烟花模板",
-cat:"爆炸",
-code:`/give @p firework_rocket[fireworks={flight_duration:3,explosions:[{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"}]}] 64`
-},
-{
-title:"旗子矛",
-cat:"武器",
-code:`/give @p diamond_spear[item_model="minecraft:white_banner",custom_name='{"text":"战旗","color":"gold","bold":true,"italic":false}',attribute_modifiers=[{id:"damage",type:"minecraft:attack_damage",amount:20,operation:"add_value",slot:"mainhand"}],enchantments={lunge:15,knockback:4,unbreaking:3,mending:1}]`
-},
-{
-title:"超级牛排",
-cat:"工具",
-code:`/give @p cooked_beef[food={nutrition:1000,saturation:1000,can_always_eat:true},consumable={consume_seconds:0.05}] 64`
-},
-{
-title:"战斗之神的馈赠",
-cat:"药水",
-code:`/give @p splash_potion[item_model="minecraft:dragon_egg",custom_name='{"text":"战斗之神的馈赠","color":"gold","bold":true,"italic":false}',max_stack_size=64,potion_contents={custom_effects:[{id:"minecraft:regeneration",amplifier:4,duration:36000},{id:"minecraft:resistance",amplifier:4,duration:36000},{id:"minecraft:strength",amplifier:4,duration:36000},{id:"minecraft:speed",amplifier:2,duration:36000},{id:"minecraft:jump_boost",amplifier:1,duration:36000},{id:"minecraft:night_vision",amplifier:0,duration:36000},{id:"minecraft:fire_resistance",amplifier:0,duration:36000},{id:"minecraft:water_breathing",amplifier:0,duration:36000},{id:"minecraft:saturation",amplifier:0,duration:36000},{id:"minecraft:absorption",amplifier:4,duration:36000}]}}] 64`
-},
-{
-title:"劣质不死图腾",
-cat:"药水",
-code:`/give @p totem_of_undying[max_stack_size=64,custom_name='{"text":"劣质不死图腾","color":"dark_green","italic":false}',death_protection={death_effects:[{type:"apply_effects",effects:[{id:"minecraft:nausea",amplifier:0,duration:300},{id:"minecraft:poison",amplifier:1,duration:300},{id:"minecraft:weakness",amplifier:1,duration:300}]}]}] 64`
-},
-{
-title:"浴火重生药水",
-cat:"药水",
-code:`/give @p splash_potion[max_stack_size=64,custom_name='{"text":"浴火重生","color":"gold","bold":true,"italic":false}',potion_contents={custom_effects:[{id:"minecraft:instant_damage",amplifier:0,duration:1},{id:"minecraft:regeneration",amplifier:4,duration:1200}]}}] 64`
-},
-{
-title:"灾厄之瓶样式喷溅药水",
-cat:"药水",
-code:`/give @p splash_potion[item_model="minecraft:ominous_bottle",custom_name='{"text":"灾厄之瓶","color":"dark_red","bold":true,"italic":false}',max_stack_size=64,potion_contents={custom_effects:[{id:"minecraft:blindness",amplifier:0,duration:600},{id:"minecraft:nausea",amplifier:0,duration:600},{id:"minecraft:slowness",amplifier:2,duration:600},{id:"minecraft:hunger",amplifier:4,duration:600},{id:"minecraft:weakness",amplifier:2,duration:600}]}}] 64`
-},
-{
-title:"海洋之心高伤害斧",
-cat:"武器",
-code:`/give @p diamond_axe[item_model="minecraft:heart_of_the_sea",custom_name='{"text":"海洋之心","color":"gold","bold":true,"italic":false}',damage=1560,attribute_modifiers=[{id:"damage",type:"minecraft:attack_damage",amount:15,operation:"add_value",slot:"mainhand"}],enchantments={sharpness:22}]`
-},
-{
-title:"净化圣水",
-cat:"药水",
-code:`/give @p milk_bucket[custom_name='{"text":"净化圣水","color":"white","bold":true,"italic":false}',max_stack_size=64,consumable={consume_seconds:2,on_consume_effects:[{type:"clear_all_effects"},{type:"apply_effects",effects:[{id:"minecraft:night_vision",amplifier:0,duration:100}]}]}] 64`
-},
-{
-title:"诸神之翼",
-cat:"鞘翅",
-code:`/give @p elytra[custom_name='{"text":"诸神之翼","color":"gold","bold":true,"italic":false}',unbreakable={},enchantment_glint_override=true,attribute_modifiers=[{id:"speed",type:"minecraft:movement_speed",amount:1.0,operation:"add_multiplied_total",slot:"chest"},{id:"kb",type:"minecraft:knockback_resistance",amount:1.0,operation:"add_value",slot:"chest"},{id:"armor",type:"minecraft:armor",amount:20,operation:"add_value",slot:"chest"},{id:"tough",type:"minecraft:armor_toughness",amount:20,operation:"add_value",slot:"chest"}]]`
-},
-{
-title:"潮涌核心样式烟花火箭",
-cat:"鞘翅",
-code:`/give @p firework_rocket[item_model="minecraft:conduit",custom_name='{"text":"神风推进器","color":"gold","bold":true,"italic":false}',enchantment_glint_override=true,fireworks={flight_duration:3}] 64`
-},
-{
-title:"超级火球",
-cat:"爆炸",
-code:`/summon fireball ~ ~1 ~ {ExplosionPower:127}`
-}
+{title:"极限攻击复活木棍",cat:"武器",code:`/give @p stick[max_stack_size=64,custom_name='{"text":"极限攻击复活木棍","italic":false,"bold":true,"color":"gold"}',death_protection={death_effects:[{type:"apply_effects",effects:[{id:"minecraft:regeneration",amplifier:9,duration:1200},{id:"minecraft:resistance",amplifier:4,duration:1200},{id:"minecraft:strength",amplifier:9,duration:1200},{id:"minecraft:speed",amplifier:3,duration:1200},{id:"minecraft:jump_boost",amplifier:3,duration:1200},{id:"minecraft:night_vision",amplifier:0,duration:1200},{id:"minecraft:fire_resistance",amplifier:0,duration:1200},{id:"minecraft:absorption",amplifier:9,duration:1200}]}]},attribute_modifiers=[{id:"d",type:"minecraft:attack_damage",amount:1048576,operation:"add_value",slot:"mainhand"},{id:"s",type:"minecraft:attack_speed",amount:1024,operation:"add_value",slot:"mainhand"}],enchantments={sharpness:255,smite:255,bane_of_arthropods:255,knockback:255,fire_aspect:255,looting:255,sweeping_edge:255,unbreaking:255,mending:1},enchantment_glint_override=true] 64`},
+{title:"极限头盔",cat:"盔甲",code:`/give @p netherite_helmet[attribute_modifiers=[{id:"h1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"head"},{id:"h2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"head"},{id:"h3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"head"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,respiration:255,aqua_affinity:1,thorns:255,unbreaking:255,mending:1}]`},
+{title:"极限胸甲",cat:"盔甲",code:`/give @p netherite_chestplate[attribute_modifiers=[{id:"c1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"chest"},{id:"c2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"chest"},{id:"c3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"chest"},{id:"c4",type:"minecraft:knockback_resistance",amount:1,operation:"add_value",slot:"chest"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,thorns:255,unbreaking:255,mending:1}]`},
+{title:"极限护腿",cat:"盔甲",code:`/give @p netherite_leggings[attribute_modifiers=[{id:"l1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"legs"},{id:"l2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"legs"},{id:"l3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"legs"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,thorns:255,unbreaking:255,mending:1}]`},
+{title:"极限靴子",cat:"盔甲",code:`/give @p netherite_boots[attribute_modifiers=[{id:"b1",type:"minecraft:max_health",amount:4096,operation:"add_value",slot:"feet"},{id:"b2",type:"minecraft:armor",amount:2048,operation:"add_value",slot:"feet"},{id:"b3",type:"minecraft:armor_toughness",amount:2048,operation:"add_value",slot:"feet"},{id:"b4",type:"minecraft:knockback_resistance",amount:1,operation:"add_value",slot:"feet"}],enchantments={protection:255,blast_protection:255,fire_protection:255,projectile_protection:255,feather_falling:255,depth_strider:255,soul_speed:255,thorns:255,unbreaking:255,mending:1}]`},
+{title:"超级镐子",cat:"工具",code:`/give @p netherite_pickaxe[enchantments={efficiency:255,fortune:255,unbreaking:255,mending:1}]`},
+{title:"超级恢复药水",cat:"药水",code:`/give @p splash_potion[potion_contents={custom_effects:[{id:"minecraft:instant_health",amplifier:255,duration:1},{id:"minecraft:regeneration",amplifier:255,duration:1200},{id:"minecraft:absorption",amplifier:255,duration:1200}]},max_stack_size=64] 64`},
+{title:"超级弩",cat:"武器",code:`/give @p crossbow[enchantments={quick_charge:255,unbreaking:255,mending:1}]`},
+{title:"超级烟花模板",cat:"爆炸",code:`/give @p firework_rocket[fireworks={flight_duration:3,explosions:[{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"},{shape:"large_ball"}]}] 64`},
+{title:"旗子矛",cat:"武器",code:`/give @p diamond_spear[item_model="minecraft:white_banner",custom_name='{"text":"战旗","color":"gold","bold":true,"italic":false}',attribute_modifiers=[{id:"damage",type:"minecraft:attack_damage",amount:20,operation:"add_value",slot:"mainhand"}],enchantments={lunge:15,knockback:4,unbreaking:3,mending:1}]`},
+{title:"超级牛排",cat:"工具",code:`/give @p cooked_beef[food={nutrition:1000,saturation:1000,can_always_eat:true},consumable={consume_seconds:0.05}] 64`},
+{title:"极限全buff喷溅药水",cat:"药水",code:`/give @p splash_potion[item_model="minecraft:dragon_egg",custom_name='{"text":"极限全buff喷溅药水","color":"gold","bold":true,"italic":false}',max_stack_size=64,potion_contents={custom_effects:[{id:"minecraft:regeneration",amplifier:4,duration:36000},{id:"minecraft:resistance",amplifier:4,duration:36000},{id:"minecraft:strength",amplifier:4,duration:36000},{id:"minecraft:speed",amplifier:2,duration:36000},{id:"minecraft:jump_boost",amplifier:1,duration:36000},{id:"minecraft:night_vision",amplifier:0,duration:36000},{id:"minecraft:fire_resistance",amplifier:0,duration:36000},{id:"minecraft:water_breathing",amplifier:0,duration:36000},{id:"minecraft:saturation",amplifier:0,duration:36000},{id:"minecraft:absorption",amplifier:4,duration:36000}]}}] 64`},
+{title:"劣质不死图腾",cat:"药水",code:`/give @p totem_of_undying[max_stack_size=64,custom_name='{"text":"劣质不死图腾","color":"dark_green","italic":false}',death_protection={death_effects:[{type:"apply_effects",effects:[{id:"minecraft:nausea",amplifier:0,duration:300},{id:"minecraft:poison",amplifier:1,duration:300},{id:"minecraft:weakness",amplifier:1,duration:300}]}]}] 64`},
+{title:"先扣血再回血药水",cat:"药水",code:`/give @p splash_potion[max_stack_size=64,custom_name='{"text":"先扣血再回血药水","color":"gold","bold":true,"italic":false}',potion_contents={custom_effects:[{id:"minecraft:instant_damage",amplifier:0,duration:1},{id:"minecraft:regeneration",amplifier:4,duration:1200}]}}] 64`},
+{title:"全debuff喷溅药水",cat:"药水",code:`/give @p splash_potion[item_model="minecraft:ominous_bottle",custom_name='{"text":"全debuff喷溅药水","color":"dark_red","bold":true,"italic":false}',max_stack_size=64,potion_contents={custom_effects:[{id:"minecraft:blindness",amplifier:0,duration:600},{id:"minecraft:nausea",amplifier:0,duration:600},{id:"minecraft:slowness",amplifier:2,duration:600},{id:"minecraft:hunger",amplifier:4,duration:600},{id:"minecraft:weakness",amplifier:2,duration:600}]}}] 64`},
+{title:"极限攻击钻石斧",cat:"武器",code:`/give @p diamond_axe[item_model="minecraft:heart_of_the_sea",custom_name='{"text":"极限攻击钻石斧","color":"gold","bold":true,"italic":false}',damage=1560,attribute_modifiers=[{id:"damage",type:"minecraft:attack_damage",amount:15,operation:"add_value",slot:"mainhand"}],enchantments={sharpness:22}]`},
+{title:"清除效果奶桶",cat:"药水",code:`/give @p milk_bucket[custom_name='{"text":"清除效果奶桶","color":"white","bold":true,"italic":false}',max_stack_size=64,consumable={consume_seconds:2,on_consume_effects:[{type:"clear_all_effects"},{type:"apply_effects",effects:[{id:"minecraft:night_vision",amplifier:0,duration:100}]}]}] 64`},
+{title:"极限飞行鞘翅",cat:"鞘翅",code:`/give @p elytra[custom_name='{"text":"极限飞行鞘翅","color":"gold","bold":true,"italic":false}',unbreakable={},enchantment_glint_override=true,attribute_modifiers=[{id:"speed",type:"minecraft:movement_speed",amount:1.0,operation:"add_multiplied_total",slot:"chest"},{id:"kb",type:"minecraft:knockback_resistance",amount:1.0,operation:"add_value",slot:"chest"},{id:"armor",type:"minecraft:armor",amount:20,operation:"add_value",slot:"chest"},{id:"tough",type:"minecraft:armor_toughness",amount:20,operation:"add_value",slot:"chest"}]]`},
+{title:"潮涌核心样式烟花火箭",cat:"鞘翅",code:`/give @p firework_rocket[item_model="minecraft:conduit",custom_name='{"text":"神风推进器","color":"gold","bold":true,"italic":false}',enchantment_glint_override=true,fireworks={flight_duration:3}] 64`},
+{title:"超级火球",cat:"爆炸",code:`/summon fireball ~ ~1 ~ {ExplosionPower:127}`}
 ];
 
 let current = "全部";
-
 function render(){
   const q = document.getElementById("search").value.toLowerCase();
   const list = document.getElementById("list");
   list.innerHTML = "";
-  commands.filter(x=>{
-    return (current==="全部" || x.cat===current) &&
-    (x.title.toLowerCase().includes(q) || x.cat.toLowerCase().includes(q) || x.code.toLowerCase().includes(q));
-  }).forEach((x,i)=>{
+  commands.filter(x=>(current==="全部"||x.cat===current)&&(x.title.toLowerCase().includes(q)||x.cat.toLowerCase().includes(q)||x.code.toLowerCase().includes(q))).forEach((x,i)=>{
     const card=document.createElement("div");
     card.className="card";
-    card.innerHTML=`
-      <span class="tag">${x.cat}</span>
-      <h2>${x.title}</h2>
-      <pre id="code${i}">${x.code}</pre>
-      <button class="copy" onclick="copyCode(${i})">📋 复制指令</button>
-    `;
+    card.innerHTML=`<span class="tag">${x.cat}</span><h2>${x.title}</h2><pre id="code${i}">${x.code}</pre><button class="copy" onclick="copyCode(${i})">📋 复制指令</button>`;
     list.appendChild(card);
   });
 }
-
-function filter(cat){
-  current=cat;
-  render();
-}
-
+function filter(cat){current=cat;render();}
 function copyCode(i){
   navigator.clipboard.writeText(commands.filter(x=>{
     const q=document.getElementById("search").value.toLowerCase();
-    return (current==="全部" || x.cat===current) &&
-    (x.title.toLowerCase().includes(q) || x.cat.toLowerCase().includes(q) || x.code.toLowerCase().includes(q));
+    return (current==="全部"||x.cat===current)&&(x.title.toLowerCase().includes(q)||x.cat.toLowerCase().includes(q)||x.code.toLowerCase().includes(q));
   })[i].code);
   alert("已复制！");
 }
-
 document.getElementById("search").addEventListener("input",render);
 render();
 
-/* ========================
-   指令生成器逻辑
-======================== */
+/* =========================================================
+   指令生成器
+========================================================= */
+const $ = id=>document.getElementById(id);
+
+/* 数据表 */
+const COLORS = [
+["","默认"],["white","白色"],["yellow","金黄"],["gold","橙金"],["red","红色"],["dark_red","深红"],
+["light_purple","品红"],["dark_purple","紫色"],["blue","蓝色"],["dark_blue","深蓝"],
+["aqua","青蓝"],["dark_aqua","深青"],["green","绿色"],["dark_green","深绿"],
+["gray","灰色"],["dark_gray","深灰"],["black","黑色"]
+];
+
+const ENCH_LIST = [
+["sharpness","锋利"],["smite","亡灵杀手"],["bane_of_arthropods","节肢杀手"],
+["knockback","击退"],["fire_aspect","火焰附加"],["looting","抢夺"],
+["sweeping_edge","横扫之刃"],["unbreaking","耐久"],["mending","经验修补"],
+["protection","保护"],["blast_protection","爆炸保护"],["fire_protection","火焰保护"],
+["projectile_protection","弹射物保护"],["feather_falling","摔落保护"],
+["respiration","水下呼吸"],["aqua_affinity","水下速掘"],["thorns","荆棘"],
+["depth_strider","深海漫游"],["soul_speed","灵魂疾行"],["swift_sneak","迅捷潜行"],
+["efficiency","效率"],["fortune","时运"],["silk_touch","精准采集"],
+["power","力量"],["punch","冲击"],["flame","火矢"],["infinity","无限"],
+["piercing","穿透"],["multishot","多重射击"],["quick_charge","快速装填"],
+["loyalty","忠诚"],["channeling","引雷"],["riptide","激流"],["impaling","穿刺"],
+["luck_of_the_sea","海之眷顾"],["lure","饵钓"],
+["density","致密"],["breach","破甲"],["wind_burst","风爆"]
+];
+
+const ATTR_LIST = [
+["attack_damage","攻击伤害"],["attack_speed","攻击速度"],["attack_knockback","攻击击退"],
+["max_health","最大生命"],["armor","护甲"],["armor_toughness","护甲韧性"],
+["knockback_resistance","击退抗性"],["movement_speed","移动速度"],["jump_strength","跳跃力"],
+["luck","幸运"],["block_break_speed","破坏速度"],["mining_efficiency","挖掘效率"],
+["entity_interaction_range","实体交互距离"],["block_interaction_range","方块交互距离"],
+["safe_fall_distance","安全下落距离"],["fall_damage_multiplier","下落伤害倍率"],
+["gravity","重力"],["scale","体型"],["step_height","步高"],
+["sneaking_speed","潜行速度"],["water_movement_efficiency","水中移动效率"],
+["movement_efficiency","移动效率"],["oxygen_bonus","氧气加成"],
+["burning_time","燃烧时间"],["explosion_knockback_resistance","爆炸击退抗性"],
+["max_absorption","最大伤害吸收"]
+];
+
+const OP_LIST = [
+["add_value","加值（直接相加）"],
+["add_multiplied_base","按基础值百分比"],
+["add_multiplied_total","按总值百分比"]
+];
+
+const SLOT_LIST = [
+["mainhand","主手"],["offhand","副手"],["hand","任意手"],
+["head","头"],["chest","胸"],["legs","腿"],["feet","脚"],
+["body","身体(马铠等)"],["armor","所有盔甲"],["any","任意"]
+];
+
+const BUFF_LIST = [
+["regeneration","生命恢复"],["absorption","伤害吸收"],["resistance","抗性提升"],
+["strength","力量"],["speed","速度"],["fire_resistance","防火"],
+["night_vision","夜视"],["jump_boost","跳跃提升"],["water_breathing","水下呼吸"],
+["saturation","饱和"],["haste","急迫"],["invisibility","隐身"],
+["luck","幸运"],["slow_falling","缓降"],["conduit_power","潮涌能量"],
+["hero_of_the_village","村庄英雄"],["instant_health","瞬间治疗"]
+];
+
+const ITEM_MODELS = [
+["","(不修改外观)"],
+["netherite_sword","下界合金剑"],["diamond_sword","钻石剑"],["golden_sword","金剑"],
+["iron_sword","铁剑"],["stone_sword","石剑"],["wooden_sword","木剑"],
+["netherite_axe","下界合金斧"],["diamond_axe","钻石斧"],
+["bow","弓"],["crossbow","弩"],["trident","三叉戟"],["mace","重锤"],
+["shield","盾牌"],["elytra","鞘翅"],
+["totem_of_undying","不死图腾"],["dragon_egg","龙蛋"],["nether_star","下界之星"],
+["heart_of_the_sea","海洋之心"],["conduit","潮涌核心"],["beacon","信标"],
+["diamond","钻石"],["emerald","绿宝石"],["netherite_ingot","下界合金锭"],
+["enchanted_book","附魔书"],["written_book","成书"],
+["dragon_head","龙头"],["wither_skeleton_skull","凋零骷髅头"],
+["zombie_head","僵尸头"],["creeper_head","苦力怕头"],["piglin_head","猪灵头"],
+["player_head","玩家头颅"],
+["end_crystal","末影水晶"],["ominous_bottle","灾厄之瓶"],
+["white_banner","白色旗帜"]
+];
+
+/* 初始化下拉 */
+function fillSelect(id, arr){
+  const sel=$(id);
+  sel.innerHTML = arr.map(x=>`<option value="${x[0]}">${x[1]}${x[0]?" ("+x[0]+")":""}</option>`).join("");
+}
+fillSelect("give_name_color", COLORS);
+fillSelect("give_item_model", ITEM_MODELS);
+
+/* Tab 切换 */
 const genTabs = document.querySelectorAll("#genTabs button");
 const panels = {
-  tp: document.getElementById("panel-tp"),
-  summon: document.getElementById("panel-summon"),
-  give: document.getElementById("panel-give"),
-  effect: document.getElementById("panel-effect"),
-  gamemode: document.getElementById("panel-gamemode"),
-  time: document.getElementById("panel-time"),
-  kill: document.getElementById("panel-kill"),
-  setblock: document.getElementById("panel-setblock")
+  tp:$("panel-tp"),summon:$("panel-summon"),give:$("panel-give"),
+  effect:$("panel-effect"),gamemode:$("panel-gamemode"),time:$("panel-time"),
+  kill:$("panel-kill"),setblock:$("panel-setblock")
 };
-let currentGen = "tp";
-
+let currentGen = "give";
 genTabs.forEach(btn=>{
   btn.addEventListener("click",()=>{
     genTabs.forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
     currentGen = btn.dataset.gen;
-    Object.keys(panels).forEach(k=>panels[k].style.display = (k===currentGen)?"block":"none");
+    Object.keys(panels).forEach(k=>panels[k].style.display=(k===currentGen)?"block":"none");
     update();
   });
 });
 
-const $ = id=>document.getElementById(id);
-
-/* TP */
+/* ===== TP ===== */
 function buildTP(){
   const who = $("tp_who").value;
   const whoFinal = who==="custom" ? ($("tp_who_name").value || "玩家名") : who;
   $("tp_who_name_row").style.display = who==="custom" ? "flex" : "none";
-
   const mode = $("tp_mode").value;
   $("tp_coord_row").style.display = (mode==="coord"||mode==="rel") ? "flex" : "none";
   $("tp_player_row").style.display = mode==="player" ? "flex" : "none";
-
   if(mode==="player"){
-    const target = $("tp_target").value || "@p";
-    return `/tp ${whoFinal} ${target}`;
-  } else {
-    const x = $("tp_x").value || "~";
-    const y = $("tp_y").value || "~";
-    const z = $("tp_z").value || "~";
-    return `/tp ${whoFinal} ${x} ${y} ${z}`;
+    return `/tp ${whoFinal} ${$("tp_target").value || "@p"}`;
   }
+  return `/tp ${whoFinal} ${$("tp_x").value||"~"} ${$("tp_y").value||"~"} ${$("tp_z").value||"~"}`;
 }
-function tpQuick(s){
-  const parts = s.split(" ");
-  $("tp_x").value = parts[0];
-  $("tp_y").value = parts[1];
-  $("tp_z").value = parts[2];
-  $("tp_mode").value = "coord";
-  update();
-}
+function tpQuick(s){const p=s.split(" ");$("tp_x").value=p[0];$("tp_y").value=p[1];$("tp_z").value=p[2];$("tp_mode").value="coord";update();}
 
-/* Summon */
+/* ===== SUMMON ===== */
 function buildSummon(){
   const mob = $("sum_mob").value;
   const pos = $("sum_pos").value;
   $("sum_pos_custom").style.display = pos==="custom" ? "flex" : "none";
-
   let coord = "~ ~ ~";
   if(pos==="front") coord = "^ ^ ^5";
   else if(pos==="up") coord = "~ ~10 ~";
-  else if(pos==="custom"){
-    coord = `${$("sum_x").value||"~"} ${$("sum_y").value||"~"} ${$("sum_z").value||"~"}`;
-  }
-
+  else if(pos==="custom") coord = `${$("sum_x").value||"~"} ${$("sum_y").value||"~"} ${$("sum_z").value||"~"}`;
   const name = $("sum_name").value.trim();
   const fire = parseInt($("sum_fire").value);
   let nbt = [];
   if(name) nbt.push(`CustomName:'{"text":"${name}"}',CustomNameVisible:1b`);
   if(fire>0) nbt.push(`Fire:${fire}s`);
   const nbtStr = nbt.length ? ` {${nbt.join(",")}}` : "";
-
   const count = Math.max(1, parseInt($("sum_count").value)||1);
   const base = `/summon minecraft:${mob} ${coord}${nbtStr}`;
-  if(count===1) return base;
-  return Array(count).fill(base).join("\n");
+  return count===1 ? base : Array(count).fill(base).join("\n");
 }
-function setSummon(mob){
-  $("sum_mob").value = mob;
+function setSummon(mob){$("sum_mob").value=mob;update();}
+
+/* ===== EFFECT ===== */
+function buildEffect(){
+  const who = $("eff_who").value;
+  const type = $("eff_type").value;
+  if(type==="clear"){$("eff_dur_row").style.display="none";$("eff_lv_row").style.display="none";return `/effect clear ${who}`;}
+  $("eff_dur_row").style.display="flex";$("eff_lv_row").style.display="flex";
+  const dur = Math.max(1, parseInt($("eff_dur").value)||60);
+  const lv = Math.max(1, parseInt($("eff_lv").value)||1);
+  return `/effect give ${who} minecraft:${type} ${dur} ${lv-1} true`;
+}
+function effPreset(d,l){$("eff_dur").value=d;$("eff_lv").value=l;update();}
+
+/* ===== GAMEMODE / TIME / KILL / SETBLOCK ===== */
+function buildGM(){return `/gamemode ${$("gm_mode").value} ${$("gm_who").value}`;}
+function buildTW(){
+  const type = $("tw_type").value;
+  $("tw_time_row").style.display = type.startsWith("time") ? "flex" : "none";
+  $("tw_weather_row").style.display = type==="weather" ? "flex" : "none";
+  if(type==="weather") return `/weather ${$("tw_weather").value}`;
+  return `/time ${type==="time_set"?"set":"add"} ${$("tw_time").value}`;
+}
+function buildKill(){
+  let target = $("kill_what").value;
+  const range = $("kill_range").value;
+  if(range){target = target.includes("[") ? target.replace("]", `,distance=..${range}]`) : target + `[distance=..${range}]`;}
+  return `/kill ${target}`;
+}
+function buildSetblock(){
+  return `/setblock ${$("sb_x").value||"~"} ${$("sb_y").value||"~"} ${$("sb_z").value||"~"} minecraft:${$("sb_block").value} ${$("sb_mode").value}`;
+}
+function sbQuick(x,y,z){$("sb_x").value=x;$("sb_y").value=y;$("sb_z").value=z;update();}
+
+/* =========================================================
+   GIVE — 神器制造机（全组件）
+========================================================= */
+let _eId=0,_aId=0,_lId=0,_dId=0;
+
+/* 附魔 */
+function addEnch(name="sharpness",lv=5){
+  const id="ench_"+(_eId++);
+  const row=document.createElement("div");
+  row.className="row-card";row.id=id;
+  row.innerHTML=`<div class="gen-row">
+    <select class="ench-name" style="flex:2">${ENCH_LIST.map(e=>`<option value="${e[0]}"${e[0]===name?" selected":""}>${e[1]} (${e[0]})</option>`).join("")}</select>
+    <input class="ench-lv" type="number" value="${lv}" min="1" max="255" style="flex:1" title="等级">
+    <button class="del-btn" onclick="this.closest('.row-card').remove();update()">✕</button>
+  </div>`;
+  $("ench_list").appendChild(row);update();
+}
+
+/* 属性修饰 */
+function addAttr(name="attack_damage",amt=20,op="add_value",slot="mainhand"){
+  const id="attr_"+(_aId++);
+  const row=document.createElement("div");
+  row.className="row-card";row.id=id;
+  row.innerHTML=`<div class="gen-row">
+    <select class="attr-name" style="flex:1.5">${ATTR_LIST.map(a=>`<option value="${a[0]}"${a[0]===name?" selected":""}>${a[1]}</option>`).join("")}</select>
+    <input class="attr-amt" type="number" value="${amt}" step="0.1" style="flex:1" title="数值">
+    <select class="attr-op" style="flex:1.3">${OP_LIST.map(o=>`<option value="${o[0]}"${o[0]===op?" selected":""}>${o[1]}</option>`).join("")}</select>
+    <select class="attr-slot" style="flex:1">${SLOT_LIST.map(s=>`<option value="${s[0]}"${s[0]===slot?" selected":""}>${s[1]}</option>`).join("")}</select>
+    <button class="del-btn" onclick="this.closest('.row-card').remove();update()">✕</button>
+  </div>`;
+  $("attr_list").appendChild(row);update();
+}
+
+/* Lore */
+function addLore(text="",color="gray"){
+  const id="lore_"+(_lId++);
+  const row=document.createElement("div");
+  row.className="row-card";row.id=id;
+  row.innerHTML=`<div class="gen-row">
+    <input class="lore-text" placeholder="第${$("lore_list").children.length+1}行 Lore 文字" value="${text}" style="flex:3">
+    <select class="lore-color" style="flex:1">${COLORS.map(c=>`<option value="${c[0]}"${c[0]===color?" selected":""}>${c[1]}</option>`).join("")}</select>
+    <button class="del-btn" onclick="this.closest('.row-card').remove();update()">✕</button>
+  </div>`;
+  $("lore_list").appendChild(row);update();
+}
+
+/* 死亡保护 */
+function addDeath(buff="regeneration",lv=5,sec=30){
+  const id="death_"+(_dId++);
+  const row=document.createElement("div");
+  row.className="row-card";row.id=id;
+  row.innerHTML=`<div class="gen-row">
+    <select class="death-buff" style="flex:2">${BUFF_LIST.map(b=>`<option value="${b[0]}"${b[0]===buff?" selected":""}>${b[1]}</option>`).join("")}</select>
+    <input class="death-lv" type="number" value="${lv}" min="1" max="255" style="flex:0.8" title="等级">
+    <input class="death-sec" type="number" value="${sec}" min="1" max="999999" style="flex:1" title="持续秒数">
+    <button class="del-btn" onclick="this.closest('.row-card').remove();update()">✕</button>
+  </div>`;
+  $("death_list").appendChild(row);update();
+}
+
+/* 一键预设 */
+function presetGive(type){
+  $("ench_list").innerHTML="";$("attr_list").innerHTML="";
+  $("lore_list").innerHTML="";$("death_list").innerHTML="";
+  // 重置开关
+  ["give_unbreak","give_glint","give_hide_tooltip","give_hide_add","give_color_on",
+   "give_food_on","give_food_always","give_cd_on","give_name_bold","give_name_under",
+   "give_name_strike","give_name_obf"].forEach(i=>{const e=$(i);if(e)e.checked=false;});
+  $("give_name_italic").checked = true;
+  $("give_name").value="";
+  $("give_name_color").value="";
+  $("give_rarity").value="";
+  $("give_item_model").value="";
+  $("give_max_dmg").value="";$("give_dmg").value="";$("give_repair").value="";$("give_stack").value="";
+  $("give_count").value=1;
+  if(type==="clear"){update();return;}
+
+  if(type==="sword"){
+    $("give_item").value="netherite_sword";
+    $("give_name").value="极限神剑";$("give_name_color").value="gold";$("give_name_bold").checked=true;$("give_name_italic").checked=false;
+    $("give_glint").checked=true;$("give_unbreak").checked=true;
+    addEnch("sharpness",5);addEnch("knockback",2);addEnch("fire_aspect",2);
+    addEnch("looting",3);addEnch("sweeping_edge",3);addEnch("unbreaking",3);addEnch("mending",1);
+    addAttr("attack_damage",50,"add_value","mainhand");
+    addAttr("attack_speed",10,"add_value","mainhand");
+    addAttr("attack_knockback",5,"add_value","mainhand");
+  }
+  else if(type==="armor"){
+    $("give_item").value="netherite_chestplate";
+    $("give_name").value="极限铠甲";$("give_name_color").value="aqua";$("give_name_bold").checked=true;$("give_name_italic").checked=false;
+    $("give_rarity").value="epic";
+    $("give_glint").checked=true;$("give_unbreak").checked=true;
+    $("give_stack").value=64;
+    // 全部满级附魔 255（含所有特殊功能附魔）
+    addEnch("protection",255);
+    addEnch("blast_protection",255);
+    addEnch("fire_protection",255);
+    addEnch("projectile_protection",255);
+    addEnch("thorns",255);
+    addEnch("respiration",255);       // 水下呼吸
+    addEnch("aqua_affinity",255);     // 水下速掘
+    addEnch("depth_strider",255);     // 深海漫游
+    addEnch("soul_speed",255);        // 灵魂疾行
+    addEnch("feather_falling",255);   // 摔落保护
+    addEnch("swift_sneak",255);       // 迅捷潜行
+    addEnch("unbreaking",255);
+    addEnch("mending",1);
+    // 极限防御属性
+    addAttr("max_health",4096,"add_value","chest");
+    addAttr("armor",2048,"add_value","chest");
+    addAttr("armor_toughness",2048,"add_value","chest");
+    addAttr("knockback_resistance",1,"add_value","chest");
+    addAttr("max_absorption",4096,"add_value","chest");
+    addAttr("explosion_knockback_resistance",1,"add_value","chest");
+    // 移动/跳跃/特殊属性（温和版）
+    addAttr("movement_speed",0.05,"add_value","chest");      // +50% 速度，可控
+    addAttr("jump_strength",0.3,"add_value","chest");        // 适度跳跃
+    addAttr("step_height",1.5,"add_value","chest");          // 自动爬2格
+    addAttr("safe_fall_distance",1000,"add_value","chest");  // 无摔落伤害
+    addAttr("fall_damage_multiplier",-1,"add_value","chest");// 摔落伤害归零
+    addAttr("burning_time",-1,"add_value","chest");          // 永不燃烧
+    addAttr("oxygen_bonus",1000,"add_value","chest");        // 水下久待
+    addAttr("water_movement_efficiency",1,"add_value","chest");
+    addAttr("movement_efficiency",1,"add_value","chest");
+    addAttr("sneaking_speed",1,"add_value","chest");
+    addAttr("mining_efficiency",10,"add_value","chest");
+    addAttr("block_break_speed",1,"add_value","chest");
+    addAttr("block_interaction_range",3,"add_value","chest");// 略远放方块
+    addAttr("luck",10,"add_value","chest");
+    $("give_count").value=64;
+  }
+  else if(type==="bow"){
+    $("give_item").value="bow";
+    $("give_name").value="极限神弓";$("give_name_color").value="yellow";$("give_name_bold").checked=true;$("give_name_italic").checked=false;
+    $("give_glint").checked=true;$("give_unbreak").checked=true;
+    addEnch("power",5);addEnch("punch",2);addEnch("flame",1);
+    addEnch("infinity",1);addEnch("unbreaking",3);
+  }
+  else if(type==="pickaxe"){
+    $("give_item").value="netherite_pickaxe";
+    $("give_name").value="极限神镐";$("give_name_color").value="light_purple";$("give_name_bold").checked=true;$("give_name_italic").checked=false;
+    $("give_glint").checked=true;$("give_unbreak").checked=true;
+    addEnch("efficiency",5);addEnch("fortune",3);addEnch("unbreaking",3);addEnch("mending",1);
+    addAttr("mining_efficiency",10,"add_value","mainhand");
+  }
+  else if(type==="stick_god"){
+    // 木棍 → 极限数值加复活木棍
+    $("give_item").value="stick";
+    $("give_name").value="极限数值加复活木棍";
+    $("give_name_color").value="gold";$("give_name_bold").checked=true;$("give_name_italic").checked=false;
+    $("give_rarity").value="epic";
+    $("give_item_model").value="netherite_sword";
+    $("give_glint").checked=true;$("give_unbreak").checked=true;
+    $("give_stack").value=64;
+    addEnch("sharpness",255);addEnch("smite",255);addEnch("bane_of_arthropods",255);
+    addEnch("knockback",255);addEnch("fire_aspect",255);addEnch("looting",255);
+    addEnch("sweeping_edge",255);addEnch("unbreaking",255);addEnch("mending",1);
+    addAttr("attack_damage",1048576,"add_value","mainhand");
+    addAttr("attack_speed",1024,"add_value","mainhand");
+    addAttr("attack_knockback",10,"add_value","mainhand");
+    addAttr("max_health",20,"add_value","mainhand");
+    addDeath("regeneration",9,60);
+    addDeath("resistance",4,60);
+    addDeath("strength",9,60);
+    addDeath("speed",3,60);
+    addDeath("absorption",9,60);
+    addDeath("fire_resistance",1,60);
+    addDeath("night_vision",1,60);
+    $("give_count").value=64;
+  }
+  else if(type==="paper_god"){
+    $("give_item").value="paper";
+    $("give_name").value="极限攻击加速度纸";$("give_name_color").value="light_purple";$("give_name_bold").checked=true;$("give_name_italic").checked=false;
+    $("give_rarity").value="epic";
+    $("give_item_model").value="enchanted_book";
+    $("give_glint").checked=true;$("give_unbreak").checked=true;
+    $("give_stack").value=64;
+    addEnch("sharpness",100);addEnch("knockback",10);addEnch("looting",10);
+    addEnch("unbreaking",255);addEnch("mending",1);
+    addAttr("attack_damage",999,"add_value","mainhand");
+    addAttr("max_health",100,"add_value","mainhand");
+    addAttr("movement_speed",2,"add_multiplied_base","any");
+    addDeath("regeneration",4,60);
+    addDeath("resistance",4,60);
+    addDeath("absorption",9,60);
+    $("give_count").value=64;
+  }
+  else if(type==="totem_pro"){
+    $("give_item").value="totem_of_undying";
+    $("give_name").value="全效复活图腾";$("give_name_color").value="gold";$("give_name_bold").checked=true;$("give_name_italic").checked=false;
+    $("give_rarity").value="epic";
+    $("give_glint").checked=true;$("give_unbreak").checked=true;
+    $("give_stack").value=64;
+    addDeath("regeneration",9,300);
+    addDeath("resistance",4,300);
+    addDeath("strength",9,300);
+    addDeath("speed",3,300);
+    addDeath("jump_boost",3,300);
+    addDeath("night_vision",1,300);
+    addDeath("fire_resistance",1,300);
+    addDeath("water_breathing",1,300);
+    addDeath("absorption",9,300);
+    addDeath("haste",4,300);
+    addDeath("saturation",4,300);
+    $("give_count").value=64;
+  }
+  else if(type==="food_god"){
+    $("give_item").value="cooked_beef";
+    $("give_name").value="无限饱食牛肉";$("give_name_color").value="gold";$("give_name_bold").checked=true;$("give_name_italic").checked=false;
+    $("give_food_on").checked=true;
+    $("give_food_nut").value=1000;
+    $("give_food_sat").value=1000;
+    $("give_food_always").checked=true;
+    $("give_consume_sec").value=0.05;
+    $("give_stack").value=64;
+    $("give_count").value=64;
+  }
   update();
 }
 
-/* Give */
+/* 颜色十六进制 → 整数 */
+function hexToInt(hex){return parseInt(hex.replace("#",""),16);}
+
+/* 构造 JSON-text 字符串（用于 custom_name / lore） */
+function jsonText(text,color,opts){
+  // opts: {bold,italic,under,strike,obf}
+  let s = `{"text":"${text.replace(/"/g,'\\"')}"`;
+  if(color) s += `,"color":"${color}"`;
+  if(opts){
+    if(opts.bold) s+=`,"bold":true`;
+    s+=`,"italic":${opts.italic?"true":"false"}`;
+    if(opts.under) s+=`,"underlined":true`;
+    if(opts.strike) s+=`,"strikethrough":true`;
+    if(opts.obf) s+=`,"obfuscated":true`;
+  } else {
+    s += `,"italic":false`;
+  }
+  s += `}`;
+  return s;
+}
+
+/* 主生成函数 */
 function buildGive(){
   const who = $("give_who").value;
   const whoFinal = who==="custom" ? ($("give_who_name").value || "玩家名") : who;
@@ -683,75 +1080,125 @@ function buildGive(){
   $("give_custom_row").style.display = item==="custom_item" ? "flex" : "none";
   const itemFinal = item==="custom_item" ? ($("give_custom").value || "minecraft:diamond") : `minecraft:${item}`;
   const count = Math.max(1, parseInt($("give_count").value)||1);
-  return `/give ${whoFinal} ${itemFinal} ${count}`;
-}
 
-/* Effect */
-function buildEffect(){
-  const who = $("eff_who").value;
-  const type = $("eff_type").value;
-  if(type==="clear"){
-    $("eff_dur_row").style.display="none";
-    $("eff_lv_row").style.display="none";
-    return `/effect clear ${who}`;
+  const parts = [];
+
+  // custom_name
+  const nameText = $("give_name").value.trim();
+  if(nameText){
+    const nameJson = jsonText(nameText, $("give_name_color").value, {
+      bold:$("give_name_bold").checked,
+      italic:$("give_name_italic").checked,
+      under:$("give_name_under").checked,
+      strike:$("give_name_strike").checked,
+      obf:$("give_name_obf").checked
+    });
+    parts.push(`custom_name='${nameJson}'`);
   }
-  $("eff_dur_row").style.display="flex";
-  $("eff_lv_row").style.display="flex";
-  const dur = Math.max(1, parseInt($("eff_dur").value)||60);
-  const lv = Math.max(1, parseInt($("eff_lv").value)||1);
-  return `/effect give ${who} minecraft:${type} ${dur} ${lv-1} true`;
-}
-function effPreset(d,l){
-  $("eff_dur").value = d;
-  $("eff_lv").value = l;
-  update();
-}
 
-/* Gamemode */
-function buildGM(){
-  return `/gamemode ${$("gm_mode").value} ${$("gm_who").value}`;
-}
-
-/* Time / Weather */
-function buildTW(){
-  const type = $("tw_type").value;
-  $("tw_time_row").style.display = type.startsWith("time") ? "flex" : "none";
-  $("tw_weather_row").style.display = type==="weather" ? "flex" : "none";
-  if(type==="weather"){
-    return `/weather ${$("tw_weather").value}`;
+  // lore
+  const loreRows = document.querySelectorAll("#lore_list .row-card");
+  if(loreRows.length){
+    const lores = [];
+    loreRows.forEach(r=>{
+      const t = r.querySelector(".lore-text").value;
+      const c = r.querySelector(".lore-color").value;
+      if(t) lores.push(`'${jsonText(t,c,null)}'`);
+    });
+    if(lores.length) parts.push(`lore=[${lores.join(",")}]`);
   }
-  const cmd = type==="time_set" ? "set" : "add";
-  return `/time ${cmd} ${$("tw_time").value}`;
-}
 
-/* Kill */
-function buildKill(){
-  let target = $("kill_what").value;
-  const range = $("kill_range").value;
-  if(range){
-    if(target.includes("[")){
-      target = target.replace("]", `,distance=..${range}]`);
-    } else {
-      target += `[distance=..${range}]`;
-    }
+  // rarity
+  if($("give_rarity").value) parts.push(`rarity="${$("give_rarity").value}"`);
+
+  // item_model
+  if($("give_item_model").value) parts.push(`item_model="minecraft:${$("give_item_model").value}"`);
+
+  // glint
+  if($("give_glint").checked) parts.push(`enchantment_glint_override=true`);
+
+  // hide tooltips
+  if($("give_hide_tooltip").checked) parts.push(`hide_tooltip={}`);
+  if($("give_hide_add").checked) parts.push(`hide_additional_tooltip={}`);
+
+  // dyed_color
+  if($("give_color_on").checked){
+    parts.push(`dyed_color=${hexToInt($("give_color").value)}`);
   }
-  return `/kill ${target}`;
+
+  // unbreakable
+  if($("give_unbreak").checked) parts.push(`unbreakable={}`);
+
+  // max_damage
+  if($("give_max_dmg").value!=="") parts.push(`max_damage=${parseInt($("give_max_dmg").value)||1}`);
+  // damage (current damage)
+  if($("give_dmg").value!=="") parts.push(`damage=${parseInt($("give_dmg").value)||0}`);
+  // repair_cost
+  if($("give_repair").value!=="") parts.push(`repair_cost=${parseInt($("give_repair").value)||0}`);
+  // max_stack_size
+  if($("give_stack").value!=="") parts.push(`max_stack_size=${Math.min(99,Math.max(1,parseInt($("give_stack").value)||1))}`);
+
+  // enchantments
+  const enchRows = document.querySelectorAll("#ench_list .row-card");
+  if(enchRows.length){
+    const enchs = [];
+    enchRows.forEach(r=>{
+      const n = r.querySelector(".ench-name").value;
+      const l = parseInt(r.querySelector(".ench-lv").value) || 1;
+      enchs.push(`${n}:${l}`);
+    });
+    parts.push(`enchantments={${enchs.join(",")}}`);
+  }
+
+  // attribute_modifiers
+  const attrRows = document.querySelectorAll("#attr_list .row-card");
+  if(attrRows.length){
+    const attrs = [];
+    attrRows.forEach((r,i)=>{
+      const n = r.querySelector(".attr-name").value;
+      const a = parseFloat(r.querySelector(".attr-amt").value) || 0;
+      const o = r.querySelector(".attr-op").value;
+      const s = r.querySelector(".attr-slot").value;
+      attrs.push(`{id:"mod_${n}_${i}",type:"minecraft:${n}",amount:${a},operation:"${o}",slot:"${s}"}`);
+    });
+    parts.push(`attribute_modifiers=[${attrs.join(",")}]`);
+  }
+
+  // food + consumable
+  if($("give_food_on").checked){
+    const nut = Math.max(0, parseInt($("give_food_nut").value)||0);
+    const sat = parseFloat($("give_food_sat").value)||0;
+    let foodStr = `nutrition:${nut},saturation:${sat}`;
+    if($("give_food_always").checked) foodStr += `,can_always_eat:true`;
+    parts.push(`food={${foodStr}}`);
+    const sec = parseFloat($("give_consume_sec").value)||0.05;
+    parts.push(`consumable={consume_seconds:${sec}}`);
+  }
+
+  // use_cooldown
+  if($("give_cd_on").checked){
+    const sec = parseFloat($("give_cd_sec").value)||1;
+    parts.push(`use_cooldown={seconds:${sec}}`);
+  }
+
+  // death_protection
+  const deathRows = document.querySelectorAll("#death_list .row-card");
+  if(deathRows.length){
+    const effects = [];
+    deathRows.forEach(r=>{
+      const b = r.querySelector(".death-buff").value;
+      const lv = parseInt(r.querySelector(".death-lv").value)||1;
+      const sec = parseInt(r.querySelector(".death-sec").value)||30;
+      effects.push(`{id:"minecraft:${b}",amplifier:${lv-1},duration:${sec*20}}`);
+    });
+    parts.push(`death_protection={death_effects:[{type:"apply_effects",effects:[${effects.join(",")}]}]}`);
+  }
+
+  const comp = parts.length ? `[${parts.join(",")}]` : "";
+  return `/give ${whoFinal} ${itemFinal}${comp} ${count}`;
 }
 
-/* Setblock */
-function buildSetblock(){
-  const x = $("sb_x").value || "~";
-  const y = $("sb_y").value || "~";
-  const z = $("sb_z").value || "~";
-  return `/setblock ${x} ${y} ${z} minecraft:${$("sb_block").value} ${$("sb_mode").value}`;
-}
-function sbQuick(x,y,z){
-  $("sb_x").value=x;
-  $("sb_y").value=y;
-  $("sb_z").value=z;
-  update();
-}
-
+/* ===== UPDATE ===== */
 function update(){
   let out = "";
   switch(currentGen){
@@ -775,7 +1222,6 @@ function copyGen(){
   setTimeout(()=>btn.textContent=old, 1200);
 }
 
-/* 监听所有生成器输入 */
 document.querySelector(".gen-section").addEventListener("input", update);
 document.querySelector(".gen-section").addEventListener("change", update);
 update();
